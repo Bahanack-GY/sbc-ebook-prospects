@@ -20,7 +20,7 @@ export const EbookGrid = () => {
         const fetchEbooks = async () => {
             try {
                 // Hardcoded URL for now, matching other parts of app or use env if available
-                const response = await axios.get('http://localhost:3000/ebooks/public');
+                const response = await axios.get('https://api.sniperbusinessebook.online/ebooks/public');
                 setEbooks(response.data);
             } catch (error) {
                 console.error('Failed to fetch ebooks:', error);

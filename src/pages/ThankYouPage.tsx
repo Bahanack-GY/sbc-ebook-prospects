@@ -10,7 +10,7 @@ export default function ThankYouPage() {
 
   // const ebookId = searchParams.get('ebookId'); // Can be used to personalize
 
-  const salesLink = "https://example.com/sales-page"; 
+  const salesLink = "https://sniperbuisnesscenter.com/connexion"; 
   const whatsappLink = "https://whatsapp.com/channel/0029Vav3mvCElah05C8QuT03"; 
 
   return (

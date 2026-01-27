@@ -26,7 +26,7 @@ export default function CapturePage() {
   useEffect(() => {
     if (id && !staticEbook) {
         setEbookLoading(true);
-        fetch(`https://api.sniperbusinessebook.online//ebooks/public/${id}`)
+        fetch(`https://api.sniperbusinessebook.online/ebooks/public/${id}`)
             .then(res => {
                 if (!res.ok) throw new Error('Not found');
                 return res.json();
@@ -96,7 +96,7 @@ export default function CapturePage() {
             adminId: adminId || undefined
         };
         
-        await fetch('https://api.sniperbusinessebook.online//prospects', {
+        await fetch('https://api.sniperbusinessebook.online/prospects', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)

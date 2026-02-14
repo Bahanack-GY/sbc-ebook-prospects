@@ -42,15 +42,15 @@ export default function ThankYouPage() {
           </h1>
           
           <p className="text-slate-600 mb-8 max-w-md mx-auto leading-relaxed">
-            Votre Ebook est en route vers votre email.<br/>
-            En attendant, voici une opportunité exclusive sélectionnée pour vous :
+            Ton ebook a été envoyé dans ta boîte email (Vérifie aussi les spams si tu ne le vois pas), rejoins maintenant le groupe WhatsApp SBC.<br/>
+            C'est là que se fera la présentation complète et les explications de l'opportunité.
           </p>
 
           <div className="space-y-4 max-w-sm mx-auto">
-            <a href={salesLink} target="_blank" rel="noopener noreferrer" className="block w-full">
-              <Button variant="primary" className="w-full">
-                <ExternalLink className="w-4 h-4 mr-2" />
-                Gagner 10.000 FCFA/Jour (SBC)
+            <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="block w-full">
+              <Button variant="primary" className="w-full bg-green-600 hover:bg-green-700 text-white border-green-600 shadow-lg shadow-green-600/20">
+                <MessageCircle className="w-4 h-4 mr-2" />
+                Je rejoins le groupe WhatsApp SBC
               </Button>
             </a>
 
@@ -60,10 +60,10 @@ export default function ThankYouPage() {
               <div className="flex-grow border-t border-slate-200"></div>
             </div>
 
-            <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="block w-full">
-              <Button variant="outline" className="w-full">
-                <MessageCircle className="w-4 h-4 mr-2" />
-                Rejoindre la Communauté
+            <a href={salesLink} target="_blank" rel="noopener noreferrer" className="block w-full">
+              <Button variant="outline" className="w-full text-orange-600 border-orange-200 hover:bg-orange-50 hover:border-orange-300">
+                <ExternalLink className="w-4 h-4 mr-2" />
+                Je veux comprendre la SBC maintenant
               </Button>
             </a>
           </div>

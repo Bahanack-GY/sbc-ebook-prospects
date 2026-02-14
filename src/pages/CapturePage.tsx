@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Download, CheckCircle, AlertCircle, ArrowLeft } from 'lucide-react';
+import { Download, AlertCircle, ArrowLeft } from 'lucide-react';
 import { EBOOKS } from '../data/ebooks';
 import { Card } from '../components/ui/Card';
 import { Input } from '../components/ui/Input';
@@ -112,7 +112,7 @@ export default function CapturePage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 md:p-8">
+    <div className="min-h-screen flex flex-col items-center py-12 px-4 bg-slate-50">
       
       {/* Logo */}
       <motion.img 
@@ -120,74 +120,45 @@ export default function CapturePage() {
         animate={{ opacity: 1, y: 0 }}
         src={Logo} 
         alt="SBC Logo" 
-        className="h-12 mb-8 md:absolute md:top-8 md:left-8"
+        className="h-16 mb-8"
       />
 
       {/* Back Button */}
-      <Link to="/" className="absolute top-8 right-8 z-10">
-        <Button variant="ghost" className="flex items-center text-slate-500 hover:text-slate-800 rounded-2xl">
+      <Link to="/" className="absolute top-4 right-4 md:top-8 md:right-8 z-10">
+        <Button variant="ghost" className="flex items-center text-slate-500 hover:text-slate-800">
             <ArrowLeft className="w-5 h-5 mr-2" />
             <span className="hidden md:inline">Retour</span>
         </Button>
       </Link>
 
-      <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div className="max-w-3xl w-full flex flex-col items-center space-y-8">
         
-        {/* Left Column: Ebook Info */}
+        {/* Header Text */}
         <motion.div 
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-          className="order-2 md:order-1 space-y-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center space-y-4"
         >
-          <div className="relative group perspective-1000">
-             {/* Simple shadow/glow instead of colored blur */}
-             <div className="absolute -inset-4 bg-blue-500/20 rounded-full blur-3xl opacity-50 group-hover:opacity-75 transition duration-500"></div>
-            {ebook.image ? (
-                <img 
-                  src={ebook.image} 
-                  alt={ebook.title} 
-                  className="relative w-full max-w-sm mx-auto md:mx-0 rounded-lg shadow-2xl shadow-blue-900/10 transform transition-transform duration-500 hover:scale-[1.02]"
-                />
-            ) : (
-                <div className="relative w-full max-w-sm mx-auto md:mx-0 rounded-lg shadow-2xl shadow-blue-900/10 bg-slate-50 aspect-[3/4] flex flex-col items-center justify-center p-8 text-center transform transition-transform duration-500 hover:scale-[1.02]">
-                    <img src={LogoSBC} alt="SBC" className="h-16 w-auto mb-6" />
-                    <h3 className="text-xl md:text-2xl font-bold text-blue-600 leading-tight">
-                        {ebook.title}
-                    </h3>
-                </div>
-            )}
-          </div>
-          
-          <div className="text-center md:text-left space-y-6">
-            <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight">
-              {ebook.title}
-            </h1>
-            <p className="text-lg text-slate-600 leading-relaxed">
-              {ebook.description}
-            </p>
-            <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-               <div className="flex items-center text-sm font-medium text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
-                  <CheckCircle className="w-4 h-4 mr-2 text-green-500" /> Gratuit
-               </div>
-               <div className="flex items-center text-sm font-medium text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
-                  <CheckCircle className="w-4 h-4 mr-2 text-green-500" /> Instantané
-               </div>
-            </div>
-          </div>
+          <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight">
+            Comment commencer à générer tes premiers revenus grâce à la revente des produits digitaux
+          </h1>
+          <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
+            Télécharge gratuitement le guide pratique qui t'explique étape par étape comment démarrer, même si tu es débutant et sans expérience technique.
+          </p>
         </motion.div>
 
-        {/* Right Column: Capture Form */}
+        {/* Capture Form */}
         <motion.div 
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="order-1 md:order-2"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.1 }}
+          className="w-full max-w-md"
         >
-          <Card className="border">
-            <div className="mb-8 text-center">
-              <h2 className="text-2xl font-bold text-slate-900 mb-2">Téléchargez votre copie</h2>
-              <p className="text-slate-500 text-sm">Remplissez le formulaire pour accès immédiat.</p>
+          <Card className="border-t-4 border-t-blue-600 shadow-xl">
+            <div className="mb-6 text-center">
+              <p className="text-slate-700 font-medium">
+                Remplis ton nom, prénom, ton WhatsApp et ton adresse mail pour recevoir le guide immédiatement
+              </p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -197,12 +168,14 @@ export default function CapturePage() {
                   placeholder="Prénom"
                   value={formData.firstName}
                   onChange={handleChange}
+                  required
                 />
                 <Input 
                   name="lastName" 
                   placeholder="Nom"
                   value={formData.lastName}
                   onChange={handleChange}
+                  required
                 />
               </div>
               
@@ -212,6 +185,7 @@ export default function CapturePage() {
                 type="tel"
                 value={formData.whatsapp}
                 onChange={handleChange}
+                required
               />
               
               <Input 
@@ -220,25 +194,47 @@ export default function CapturePage() {
                 type="email"
                 value={formData.email}
                 onChange={handleChange}
+                required
               />
 
               {error && (
                 <div className="flex items-center p-3 bg-red-50 text-red-600 rounded-lg text-sm border border-red-100">
-                  <AlertCircle className="w-4 h-4 mr-2 flex-shrink-0" />
+                  <AlertCircle className="w-4 h-4 mr-2 shrink-0" />
                   {error}
                 </div>
               )}
 
-              <Button type="submit" isLoading={loading} variant="primary" className="w-full">
-                <Download className="w-4 h-4 mr-2" />
-                Recevoir mon Ebook
+              <Button type="submit" isLoading={loading} variant="primary" className="w-full py-4 text-lg font-bold shadow-lg shadow-blue-600/20">
+                <Download className="w-5 h-5 mr-2" />
+                Recevoir le guide pour commencer à gagner en ligne
               </Button>
 
-              <p className="text-xs text-slate-400 text-center mt-4">
-                Vos informations sont sécurisées.
+              <p className="text-xs text-slate-400 text-center mt-2">
+                Vos informations sont 100% sécurisées.
               </p>
             </form>
           </Card>
+        </motion.div>
+
+        {/* Flyer / Ebook Image (Bottom) */}
+        <motion.div
+           initial={{ opacity: 0, y: 30 }}
+           animate={{ opacity: 1, y: 0 }}
+           transition={{ delay: 0.3 }}
+           className="w-full max-w-md"
+        >
+            {ebook.image ? (
+                <img 
+                  src={ebook.image} 
+                  alt={ebook.title} 
+                  className="w-full rounded-xl shadow-2xl rotate-1 hover:rotate-0 transition-transform duration-500"
+                />
+            ) : (
+                <div className="w-full aspect-[3/4] bg-white rounded-xl shadow-2xl flex flex-col items-center justify-center p-8 text-center border border-slate-100">
+                    <img src={LogoSBC} alt="SBC" className="h-16 w-auto mb-6" />
+                    <h3 className="text-xl font-bold text-blue-600">{ebook.title}</h3>
+                </div>
+            )}
         </motion.div>
 
       </div>

@@ -19,6 +19,13 @@ export default function CapturePage() {
   const [dynamicEbook, setDynamicEbook] = useState<any>(null);
   const [ebookLoading, setEbookLoading] = useState(false);
 
+  useEffect(() => {
+    const refParam = searchParams.get('ref');
+    if (refParam) {
+        localStorage.setItem('sbc_admin_ref', refParam);
+    }
+  }, [searchParams]);
+
   // Try static first, then dynamic
   const staticEbook = id ? EBOOKS[id] : null;
   const ebook = staticEbook || dynamicEbook;

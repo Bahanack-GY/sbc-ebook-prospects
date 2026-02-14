@@ -1,4 +1,5 @@
 
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { CheckCircle, ExternalLink, MessageCircle } from 'lucide-react';
@@ -11,7 +12,26 @@ export default function ThankYouPage() {
   // const ebookId = searchParams.get('ebookId'); // Can be used to personalize
 
   const salesLink = "https://sniperbuisnesscenter.com/connexion"; 
-  const whatsappLink = "https://whatsapp.com/channel/0029Vav3mvCElah05C8QuT03"; 
+  const [whatsappLink, setWhatsappLink] = useState("https://whatsapp.com/channel/0029Vav3mvCElah05C8QuT03");
+
+  useEffect(() => {
+    const adminRef = localStorage.getItem('sbc_admin_ref');
+    if (adminRef) {
+        fetch(`https://api.sniperbusinessebook.online/admins/public/${adminRef}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.phoneNumber) {
+                    // Remove non-digit chars for the link, but keep + if present or add it? 
+                    // Usually wa.me expects country code without +. 
+                    // Assuming user stores it correctly or we clean it.
+                    // Let's just use it as is for now, or strip basic chars.
+                    const text = "Bonjour, je viens de télécharger l'ebook et je souhaite rejoindre le groupe.";
+                    setWhatsappLink(`https://wa.me/${data.phoneNumber}?text=${encodeURIComponent(text)}`);
+                }
+            })
+            .catch(err => console.error("Failed to fetch admin info", err));
+    }
+  }, []); 
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4">

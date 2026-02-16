@@ -11,7 +11,7 @@ export default function ThankYouPage() {
 
   // const ebookId = searchParams.get('ebookId'); // Can be used to personalize
 
-  const salesLink = "https://sniperbuisnesscenter.com/connexion"; 
+  const [salesLink, setSalesLink] = useState("https://sniperbuisnesscenter.com/connexion"); 
   const [whatsappLink, setWhatsappLink] = useState("https://whatsapp.com/channel/0029Vav3mvCElah05C8QuT03");
 
   useEffect(() => {
@@ -20,13 +20,17 @@ export default function ThankYouPage() {
         fetch(`https://api.sniperbusinessebook.online/admins/public/${adminRef}`)
             .then(res => res.json())
             .then(data => {
-                if (data && data.phoneNumber) {
-                    // Remove non-digit chars for the link, but keep + if present or add it? 
-                    // Usually wa.me expects country code without +. 
-                    // Assuming user stores it correctly or we clean it.
-                    // Let's just use it as is for now, or strip basic chars.
-                    const text = "Bonjour, je viens de télécharger l'ebook et je souhaite rejoindre le groupe.";
-                    setWhatsappLink(`https://wa.me/${data.phoneNumber}?text=${encodeURIComponent(text)}`);
+                if (data) {
+                    if (data.salesPageLink) {
+                        setSalesLink(data.salesPageLink);
+                    }
+                    if (data.whatsappGroupLink) {
+                        setWhatsappLink(data.whatsappGroupLink);
+                    } else if (data.phoneNumber) {
+                         // Fallback to WA.me if no group link but phone exists (optional, or just keep default)
+                        const text = "Bonjour, je viens de télécharger l'ebook et je souhaite rejoindre le groupe.";
+                        setWhatsappLink(`https://wa.me/${data.phoneNumber}?text=${encodeURIComponent(text)}`);
+                    }
                 }
             })
             .catch(err => console.error("Failed to fetch admin info", err));

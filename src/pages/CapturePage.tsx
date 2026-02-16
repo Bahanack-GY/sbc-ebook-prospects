@@ -31,7 +31,26 @@ export default function CapturePage() {
   const ebook = staticEbook || dynamicEbook;
 
   useEffect(() => {
-    if (id && !staticEbook) {
+    if (!id) {
+        // Fetch list and use first one
+        setEbookLoading(true);
+        fetch('https://api.sniperbusinessebook.online/ebooks/public')
+            .then(res => res.json())
+            .then(data => {
+                if (Array.isArray(data) && data.length > 0) {
+                    const first = data[0];
+                    setDynamicEbook({
+                        id: first._id,
+                        title: first.title,
+                        description: first.description,
+                        image: first.coverUrl,
+                        pdfUrl: first.pdfUrl
+                    });
+                }
+            })
+            .catch(err => console.error("Failed to load default ebook", err))
+            .finally(() => setEbookLoading(false));
+    } else if (id && !staticEbook) {
         setEbookLoading(true);
         fetch(`https://api.sniperbusinessebook.online/ebooks/public/${id}`)
             .then(res => {
@@ -237,7 +256,7 @@ export default function CapturePage() {
                   className="w-full rounded-xl shadow-2xl rotate-1 hover:rotate-0 transition-transform duration-500"
                 />
             ) : (
-                <div className="w-full aspect-[3/4] bg-white rounded-xl shadow-2xl flex flex-col items-center justify-center p-8 text-center border border-slate-100">
+                <div className="w-full aspect-3/4 bg-white rounded-xl shadow-2xl flex flex-col items-center justify-center p-8 text-center border border-slate-100">
                     <img src={LogoSBC} alt="SBC" className="h-16 w-auto mb-6" />
                     <h3 className="text-xl font-bold text-blue-600">{ebook.title}</h3>
                 </div>

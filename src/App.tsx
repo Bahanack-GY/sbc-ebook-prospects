@@ -6,7 +6,8 @@ import ThankYouPage from './pages/ThankYouPage'
 function App(){
     return(
         <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<CapturePage />} />
+            <Route path="/ebooks" element={<Home />} />
             <Route path="/capture/:id" element={<CapturePage />} />
             <Route path="/thank-you" element={<ThankYouPage />} />
         </Routes>

@@ -118,7 +118,7 @@ export default function CapturePage() {
     try {
         const payload = {
             ...formData,
-            ebookId: id,
+            ebookId: ebook.id, // Use the actual ebook object's ID
             adminId: adminId || undefined
         };
         
@@ -128,7 +128,7 @@ export default function CapturePage() {
             body: JSON.stringify(payload)
         });
         
-        navigate(`/thank-you?ebookId=${id}`);
+        navigate(`/thank-you?ebookId=${ebook.id}`);
     } catch (err: unknown) {
         console.error(err);
         setError("Une erreur est survenue.");

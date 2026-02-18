@@ -22,7 +22,11 @@ export default function ThankYouPage() {
             .then(data => {
                 if (data) {
                     if (data.salesPageLink) {
-                        setSalesLink(data.salesPageLink);
+                        let link = data.salesPageLink;
+                        if (!/^https?:\/\//i.test(link)) {
+                            link = 'https://' + link;
+                        }
+                        setSalesLink(link);
                     }
                     if (data.whatsappGroupLink) {
                         setWhatsappLink(data.whatsappGroupLink);
